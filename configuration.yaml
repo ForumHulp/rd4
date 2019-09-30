@@ -1,0 +1,13 @@
+﻿sensor:
+  - platform: rd4
+    wastecollector: rd4
+    resources:
+      - restafval
+      - gft
+      - oud papier
+      - pmd-afval
+      - snoeiafval op afspraak
+      - kerstbomen
+      - best-tas
+    postcode: 111AAA
+    streetnumber: 1

@@ -1,0 +1,46 @@
+title: rd4
+path: rd4
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: quick-access-menu
+        variables:
+          - name1: About
+          - icon1: information
+          - lovelace1: developer-tools
+          - path1: info
+          - name2: Dashboard
+          - icon2: cogs
+          - lovelace2: config
+          - path2: dashboard
+      - type: custom:decluttering-card
+        template: header
+        variables:
+          - content: '## RD4'
+      - type: custom:decluttering-card
+        template: header
+        variables:
+          - content: '##### Pickup dates'
+      - type: horizontal-stack
+        cards:
+          - !include ../includes/blank-card.yaml
+          - type: 'custom:rd4-card'
+            card:
+              type: entities
+              show_empty: true
+              style: |
+                ha-card {
+                  background: var(--homekit-card-off);
+                  --paper-item-icon-color: var(--icon-color-off);
+                  color: var(--name-color-off);
+                  border-radius: var(--border-radius);
+                  font-family: Helvetica;
+                  font-size: 12px;
+                  opacity: 0.8;
+                }
+            filter:
+              include:
+              - group: 'group.rd4'
+          - !include ../includes/blank-card.yaml
+      - !include ../includes/bottom-card.yaml
