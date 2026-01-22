@@ -1,8 +1,0 @@
-{
-  "domain": "rd4",
-  "name": "RD4",
-  "documentation": "https://github.com/ForumHulp/Home-Assistant-Sensor-Afvalbeheer",
-  "dependencies": [],
-  "codeowners": ["@Forumhulp.com"],
-  "requirements": []
-}
