@@ -1,0 +1,38 @@
+{
+  "config": {
+    "flow_title": "RD4 Afvalkalender",
+    "step": {
+      "user": {
+        "title": "RD4 Afvalkalender configureren",
+        "description": "Voer uw adresgegevens in om de ophaaldata van RD4 op te halen.",
+        "data": {
+          "feed_url": "Feed URL",
+          "postal_code": "Postcode",
+          "house_number": "Huisnummer",
+          "house_number_extension": "Huisnummertoevoeging",
+          "scan_interval": "Scaninterval (minuten)",
+          "bins": "Afvalsoorten (komma gescheiden)"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Dit adres is al geconfigureerd."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "RD4 Afvalkalender opties",
+        "description": "Werk uw RD4 Afvalkalender instellingen bij.",
+        "data": {
+          "feed_url": "Feed URL",
+          "postal_code": "Postcode",
+          "house_number": "Huisnummer",
+          "house_number_extension": "Huisnummertoevoeging",
+          "scan_interval": "Scaninterval (minuten)",
+          "bins": "Afvalsoorten (komma gescheiden)"
+        }
+      }
+    }
+  }
+}

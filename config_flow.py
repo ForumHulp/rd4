@@ -5,7 +5,8 @@ import re
 import voluptuous as vol
 
 from homeassistant import config_entries
-from .const import DOMAIN
+from homeassistant.helpers import selector
+from .const import DOMAIN, RENAME_MESSAGE
 
 
 def _normalize_bins(value: str) -> list[str]:
@@ -23,6 +24,7 @@ class RD4ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             data = dict(user_input)
+            data["feed_url"] = "https://data.rd4.nl/api/v1/waste-calendar"
 
             # Normalize postal code
             data["postal_code"] = re.sub(r"[^A-Z0-9]", "", data["postal_code"].upper())
@@ -47,14 +49,20 @@ class RD4ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     "feed_url",
                     default="https://data.rd4.nl/api/v1/waste-calendar",
                 ): str,
+                vol.Required(
+                    "bins",
+                    default=defaults.get("bins", []),
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=[{"value": k, "label": v} for k, v in RENAME_MESSAGE.items()],
+                        mode=selector.SelectSelectorMode.DROPDOWN,
+                        multiple=True,
+                    )
+                ),
                 vol.Required("postal_code", default="6466JD"): str,
                 vol.Required("house_number", default=22): int,
                 vol.Optional("house_number_extension", default=""): str,
-                vol.Required("scan_interval", default=360): vol.Coerce(int),
-                vol.Required(
-                    "bins",
-                    default="residual_waste,gft,paper,pmd",
-                ): str,
+                vol.Required("scan_interval", default=360): vol.Coerce(int)
             }
         )
 
@@ -76,7 +84,8 @@ class RD4OptionsFlowHandler(config_entries.OptionsFlow):
 
         if user_input is not None:
             data = dict(user_input)
-            data["bins"] = _normalize_bins(data["bins"])
+            data["feed_url"] = "https://data.rd4.nl/api/v1/waste-calendar"
+            #data["bins"] = _normalize_bins(data["bins"])
             return self.async_create_entry(title="", data=data)
 
         # Schema for the options form
@@ -86,20 +95,20 @@ class RD4OptionsFlowHandler(config_entries.OptionsFlow):
                     "feed_url",
                     default=current.get("feed_url", "https://data.rd4.nl/api/v1/waste-calendar"),
                 ): str,
-                vol.Required("postal_code", default=current.get("postal_code", "6466JD")): str,
-                vol.Required("house_number", default=current.get("house_number", 22)): int,
-                vol.Optional(
-                    "house_number_extension",
-                    default=current.get("house_number_extension", ""),
-                ): str,
-                vol.Required(
-                    "scan_interval",
-                    default=current.get("scan_interval", 360),
-                ): vol.Coerce(int),
                 vol.Required(
                     "bins",
-                    default=",".join(current.get("bins", [])),
-                ): str,
+                    default=current.get("bins", []),
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=[{"value": k, "label": v} for k, v in RENAME_MESSAGE.items()],
+                        mode=selector.SelectSelectorMode.DROPDOWN,
+                        multiple=True,
+                    )
+                ),
+                vol.Required("postal_code", default=current.get("postal_code", "6466JD")): str,
+                vol.Required("house_number", default=current.get("house_number", 22)): int,
+                vol.Optional("house_number_extension", default=current.get("house_number_extension", "")): str,
+                vol.Required("scan_interval", default=current.get("scan_interval", 360)): vol.Coerce(int),
             }
         )
 

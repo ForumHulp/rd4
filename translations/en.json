@@ -1,0 +1,38 @@
+{
+  "config": {
+    "flow_title": "RD4 Waste Calendar",
+    "step": {
+      "user": {
+        "title": "Configure RD4 Waste Calendar",
+        "description": "Enter your address details to retrieve waste collection information from RD4.",
+        "data": {
+          "feed_url": "Feed URL",
+          "postal_code": "Postal Code",
+          "house_number": "House Number",
+          "house_number_extension": "House Number Extension",
+          "scan_interval": "Scan Interval (minutes)",
+          "bins": "Waste Types (comma separated)"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "This address is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "RD4 Waste Calendar Options",
+        "description": "Update your RD4 Waste Calendar settings.",
+        "data": {
+          "feed_url": "Feed URL",
+          "postal_code": "Postal Code",
+          "house_number": "House Number",
+          "house_number_extension": "House Number Extension",
+          "scan_interval": "Scan Interval (minutes)",
+          "bins": "Waste Types (comma separated)"
+        }
+      }
+    }
+  }
+}
